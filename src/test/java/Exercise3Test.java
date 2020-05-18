@@ -1,26 +1,52 @@
 import org.testng.Assert;
+import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
 public class Exercise3Test {
 
-    private Object ArithmeticException;
+    @DataProvider
+    public Object[][] modulData() {
+        return new Object[][]{
+                {10, 10},
+                {10, -10},
+                {129, -129},
+                {129, 129}
 
-    @Test
-    public void TestAbs() throws Exception {
-       Assert.assertEquals(10, Math.abs(10),"ошибка модуля");
-       Assert.assertEquals(10, Math.abs(-10),"ошибка модуля");
-   }
-
-    @Test
-    public void TestAddExact() throws Exception {
-        Assert.assertEquals(6, Math.addExact(3, 3),"ошибка функции addExact");
-        Assert.assertEquals(8, Math.addExact(10, -2),"ошибка функции addExact");
+        };
     }
 
-    @Test
-    public  void TestFloorDiv() throws Exception{
-        Assert.assertEquals(1, Math.floorDiv(4, 3),"ошибка функции floorDiv");
-        Assert.assertEquals(0, Math.floorDiv(12, 100),"ошибка функции floorDiv");
-        Assert.assertEquals(-3, Math.floorDiv(9, -3),"ошибка функции floorDiv");
+    @DataProvider
+    public Object[][] ExactData() {
+        return new Object[][]{
+                {6, 3, 3},
+                {8, 10, -2},
+                {3, 2, 1},
+                {-4, -2, -2}
+        };
+    }
+
+    @DataProvider
+    public Object[][] FloorDivData() {
+        return new Object[][]{
+                {1, 4, 3},
+                {0, 12, 100},
+                {-3, 9, -3},
+                {14, 225, 16}
+        };
+    }
+    @Test(dataProvider = "modulData")
+    public void TestAbs(int result, int Abs) throws Exception {
+       Assert.assertEquals(result, Math.abs(Abs),"ошибка модуля");
+   }
+
+    @Test (dataProvider = "ExactData")
+    public void TestAddExact(int result, int a, int b) throws Exception {
+        Assert.assertEquals(result, Math.addExact(a, b),"ошибка функции addExact");
+    }
+
+    @Test (dataProvider = "FloorDivData")
+    public  void TestFloorDiv(int result, int a, int b) throws Exception{
+        Assert.assertEquals(result, Math.floorDiv(a, b),"ошибка функции floorDiv");
+
     }
 }
