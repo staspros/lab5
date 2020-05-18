@@ -6,5 +6,6 @@ public class AreaTest {
    @Test
     public void TestArea() throws Exception {
        Assert.assertEquals(6, object_area.area(2, 3));
+   //qqq
    }
 }
